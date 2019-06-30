@@ -1,9 +1,11 @@
+import cgi
 import http.server
 import socketserver
 import urllib.parse
 from os import curdir, sep
 
 from page import edit_page, save_page, view_page
+from sitemap import site_map
 
 PORT = 8088
 
@@ -20,13 +22,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             if self.path.startswith("/media") or self.path.startswith("/static"):
                 super().do_GET()
             elif self.path.startswith("/pages"):
-                html = view_page(self.path[len("/pages/"):])
-                self.return_html_content(html)
+                self.return_html_content(view_page(self.path[len("/pages/"):]))
             elif self.path.startswith("/edit"):
-                html = edit_page(self.path[len("/edit/"):])
-                self.return_html_content(html)
+                self.return_html_content(edit_page(self.path[len("/edit/"):]))
             elif self.path.startswith("/sitemap"):
-                self.return_html_content("Sitemap")
+                self.return_html_content(site_map())
             elif self.path.startswith("/uploads"):
                 self.return_html_content("Uploads")
             return
@@ -34,17 +34,25 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_error(404,"Not Found: %s" % self.path)
 
     def do_POST(self):
+        form = cgi.FieldStorage(
+            fp=self.rfile,
+            headers=self.headers,
+            environ={"REQUEST_METHOD": "POST",
+                     "CONTENT_TYPE":self.headers["Content-Type"],
+            })
+        print(f"form {form.keys()}")
         try:
             if self.path.startswith("/save"):
                 name = self.path[len("/save/"):]
-                content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
-                content_urlencoded = self.rfile.read(content_length).decode("utf-8") # <--- Gets the data itself
-                content = urllib.parse.unquote_plus(content_urlencoded)[len("content="):]
+                content = form["content"].value
                 save_page(name, content)
                 self.send_response(301)
                 self.send_header("Content-type", "text/html")
                 self.send_header("Location", f"/pages/{name}")
                 self.end_headers()
+            # elif self.path.startswith("/search"):
+            #     searchterm = form["search"].value
+            #     self.return_html_content(search(searchterm))
         except IOError:
             self.send_error(404,"Not Found: %s" % self.path)
 

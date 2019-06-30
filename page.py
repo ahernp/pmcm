@@ -16,15 +16,6 @@ VIEW_MAINMENU_EXTRA = """<hr>
 <hr>
 <button title="Toggle display of page Table of Contents" onClick="$('div.toc').toggle()" class="pure-button">ToC</button>"""
 
-class Page(object):
-    def __init__(self, name, content):
-        self.name = name
-        self.content = content
-
-    def save(self):
-        with open(f"data/pages/{name}", "w") as pagefile:
-             pagefile.write(self.markdown_content)
-
 
 def read_page(name):
     with open(f"data/pages/{name}") as pagefile:

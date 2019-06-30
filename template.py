@@ -47,6 +47,7 @@ def populate_context(kwargs):
         "history": format_history(read_history()),
         "content": "",
         "scripts-extra": "",
+        "searchterm": "",
     }
     return {**context, **kwargs}
 

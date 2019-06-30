@@ -19,12 +19,12 @@
             <p>Version {{version}}</p>
         </div>
         <div id="sidebar">
-            <form action="/search" method="GET">
+            <form action="/search" method="POST">
                 <input
                     id="search_string"
                     type="text"
                     name="search"
-                    {{template "searchterm" .}}
+                    {{searchterm}}
                     placeholder="Search"
                     minlength="3"
                     required
