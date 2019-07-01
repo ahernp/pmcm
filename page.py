@@ -1,3 +1,5 @@
+from html import escape
+
 from history import update_history
 from template import get_template, markdown_to_html, populate_context, template_substitution
 
@@ -25,7 +27,7 @@ def read_page(name):
 def edit_page(name):
     template = get_template()
     try:
-        page_content = read_page(name)
+        page_content = escape(read_page(name))
     except IOError as e:
         page_content = ""
     context = populate_context({

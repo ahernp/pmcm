@@ -52,7 +52,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         print(f"form {form.keys()}")
         try:
             if self.path.startswith("/save"):
-                name = self.path[len("/save/"):]
+                name = urllib.parse.unquote(self.path[len("/save/"):])
                 content = form["content"].value
                 save_page(name, content)
                 self.redirect(f"/pages/{name}")
