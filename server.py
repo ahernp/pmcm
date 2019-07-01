@@ -1,3 +1,4 @@
+import argparse
 import cgi
 import http.server
 import socketserver
@@ -8,7 +9,7 @@ from page import edit_page, save_page, view_page
 from sitemap import site_map
 from uploads import file_upload, view_uploads
 
-PORT = 8088
+PORT = 7713
 
 class Handler(http.server.SimpleHTTPRequestHandler):
 
@@ -69,13 +70,16 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_error(404,"Not Found: %s" % self.path)
 
 
-def main():
-    with socketserver.TCPServer(("", PORT), Handler, bind_and_activate=False) as httpd:
-        print("serving at port", PORT)
+def main(port):
+    with socketserver.TCPServer(("", port), Handler, bind_and_activate=False) as httpd:
+        print("serving at port", port)
         httpd.allow_reuse_address = True
         httpd.server_bind()
         httpd.server_activate()
         httpd.serve_forever()
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-p", "--port", help="Port to listen on", type=int, default=PORT)
+    args = parser.parse_args()
+    main(args.port)
