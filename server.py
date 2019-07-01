@@ -6,6 +6,7 @@ import urllib.parse
 from os import curdir, sep
 
 from page import edit_page, save_page, view_page
+from search import search
 from sitemap import site_map
 from uploads import file_upload, view_uploads
 
@@ -50,7 +51,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             environ={"REQUEST_METHOD": "POST",
                      "CONTENT_TYPE":self.headers["Content-Type"],
             })
-        print(f"form {form.keys()}")
+
         try:
             if self.path.startswith("/save"):
                 name = urllib.parse.unquote(self.path[len("/save/"):])
@@ -63,9 +64,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 uploaded_data = form["newFile"].file.read()
                 file_upload(directory, filename, uploaded_data)
                 self.redirect(f"/uploads")
-            # elif self.path.startswith("/search"):
-            #     searchterm = form["search"].value
-            #     self.return_html_content(search(searchterm))
+            elif self.path.startswith("/search"):
+                 search_term = form["search"].value
+                 self.return_html_content(search(search_term))
         except IOError:
             self.send_error(404,"Not Found: %s" % self.path)
 
@@ -80,6 +81,6 @@ def main(port):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", "--port", help="Port to listen on", type=int, default=PORT)
+    parser.add_argument("-p", "--port", help="port to listen on", type=int, default=PORT)
     args = parser.parse_args()
     main(args.port)

@@ -43,7 +43,7 @@ def populate_context(kwargs):
         "title": "",
         "mainmenu": markdown_to_html(read_main_menu()),
         "mainmenu-extra": "",
-        "version": "0.1.0",
+        "version": "0.5.0",
         "history": format_history(read_history()),
         "content": "",
         "scripts-extra": "",
