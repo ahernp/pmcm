@@ -28,9 +28,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if self.path.startswith("/media") or self.path.startswith("/static"):
             super().do_GET()
         elif self.path.startswith("/pages"):
-            self.return_html_content(view_page(self.path[len("/pages/"):]))
+            name = urllib.parse.unquote(self.path[len("/pages/"):])
+            self.return_html_content(view_page(name))
         elif self.path.startswith("/edit"):
-            self.return_html_content(edit_page(self.path[len("/edit/"):]))
+            name = urllib.parse.unquote(self.path[len("/edit/"):])
+            self.return_html_content(edit_page(name))
         elif self.path.startswith("/sitemap"):
             self.return_html_content(site_map())
         elif self.path.startswith("/uploads"):
