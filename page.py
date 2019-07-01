@@ -1,8 +1,15 @@
 from html import escape
+import os
 
+from constants import PAGES_PATH
 from history import update_history
 from search import page_cache
-from template import get_template, markdown_to_html, populate_context, template_substitution
+from template import (
+    get_template,
+    markdown_to_html,
+    populate_context,
+    template_substitution,
+)
 
 EDIT_MAINMENU_EXTRA = """<hr>
 <p><a href="/pages/{{name}}">View</a></p>
@@ -21,7 +28,7 @@ VIEW_MAINMENU_EXTRA = """<hr>
 
 
 def read_page(name):
-    with open(f"data/pages/{name}") as pagefile:
+    with open(os.path.join(PAGES_PATH, name)) as pagefile:
         return pagefile.read()
 
 
@@ -31,13 +38,18 @@ def edit_page(name):
         page_content = escape(read_page(name))
     except IOError as e:
         page_content = ""
-    context = populate_context({
-        "title": name,
-        "content": template_substitution(EDIT_TEMPLATE, {"name": name, "content": page_content}),
-        "mainmenu-extra": template_substitution(EDIT_MAINMENU_EXTRA, {"name": name}),
-    })
-    html = template_substitution(template, context)
-    return html
+    context = populate_context(
+        {
+            "title": name,
+            "content": template_substitution(
+                EDIT_TEMPLATE, {"name": name, "content": page_content}
+            ),
+            "mainmenu-extra": template_substitution(
+                EDIT_MAINMENU_EXTRA, {"name": name}
+            ),
+        }
+    )
+    return template_substitution(template, context)
 
 
 def view_page(name):
@@ -45,18 +57,23 @@ def view_page(name):
         template = get_template()
         page_content = read_page(name)
         update_history(name)
-        context = populate_context({
-            "title": name,
-            "content": markdown_to_html("[TOC]\n" + page_content),
-            "mainmenu-extra": template_substitution(VIEW_MAINMENU_EXTRA, {"name": name}),
-        })
+        context = populate_context(
+            {
+                "title": name,
+                "content": markdown_to_html("[TOC]\n" + page_content),
+                "mainmenu-extra": template_substitution(
+                    VIEW_MAINMENU_EXTRA, {"name": name}
+                ),
+            }
+        )
         html = template_substitution(template, context)
         page_cache[name] = page_content
         return html
     except IOError as e:
         return edit_page(name)
 
+
 def save_page(name, content):
-    with open(f"data/pages/{name}", "w") as pagefile:
+    with open(os.path.join(PAGES_PATH, name), "w") as pagefile:
         pagefile.write(content)
     page_cache[name] = content

@@ -1,13 +1,20 @@
+import os
+
+from constants import PAGES_URL_ROOT
+
 HISTORY_LENGTH = 20
+HISTORY_FILE_PATH = os.path.join("data", "history.txt")
 
 
 def format_history(history):
-    return "\n".join([f"<p><a href=\"/pages/{record}\">{record}</a></p>" for record in history])
+    return "\n".join(
+        [f'<p><a href="{PAGES_URL_ROOT}/{name}">{name}</a></p>' for name in history]
+    )
 
 
 def read_history():
     try:
-        with open("data/history.txt") as historyfile:
+        with open(HISTORY_FILE_PATH) as historyfile:
             history = historyfile.read().split("\n")
         return history
     except IOError:
@@ -15,7 +22,7 @@ def read_history():
 
 
 def write_history(history):
-    with open("data/history.txt", "w") as historyfile:
+    with open(HISTORY_FILE_PATH, "w") as historyfile:
         historyfile.write("\n".join(history))
 
 

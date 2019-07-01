@@ -1,8 +1,11 @@
 import markdown
+import os
 import re
 
+from constants import PAGES_PATH
 from history import format_history, read_history
 
+BASE_TEMPLATE = "template.html"
 DELIMITERS_LENGTH = 4
 MARKDOWN_EXTENSIONS = ["extra", "tables", "toc"]
 
@@ -11,7 +14,9 @@ def template_substitution(template, replacements):
     substitutions = []
 
     for old_string, new_string in replacements.items():
-        starts = [match.start() for match in re.finditer("{{%s}}" % old_string, template)]
+        starts = [
+            match.start() for match in re.finditer("{{%s}}" % old_string, template)
+        ]
         length = len(old_string) + DELIMITERS_LENGTH
         offsets = [(start, start + length) for start in starts]
         for (start, end) in offsets:
@@ -26,16 +31,12 @@ def template_substitution(template, replacements):
 
 
 def get_template():
-    with open("template.html") as templatefile:
+    with open(BASE_TEMPLATE) as templatefile:
         return templatefile.read()
 
 
 def markdown_to_html(content):
-    return markdown.markdown(
-        content,
-        extensions=MARKDOWN_EXTENSIONS,
-        safe_mode=False,
-    )
+    return markdown.markdown(content, extensions=MARKDOWN_EXTENSIONS, safe_mode=False)
 
 
 def populate_context(kwargs):
@@ -54,7 +55,7 @@ def populate_context(kwargs):
 
 def read_main_menu():
     try:
-        with open("data/pages/main-menu") as pagefile:
+        with open(os.path.join(PAGES_PATH, "main-menu")) as pagefile:
             return pagefile.read()
     except IOError:
         return ""

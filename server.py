@@ -3,8 +3,8 @@ import cgi
 import http.server
 import socketserver
 import urllib.parse
-from os import curdir, sep
 
+from constants import PAGES_URL_ROOT
 from page import edit_page, save_page, view_page
 from search import search
 from sitemap import site_map
@@ -12,8 +12,17 @@ from uploads import file_upload, view_uploads
 
 PORT = 7713
 
-class Handler(http.server.SimpleHTTPRequestHandler):
+EDIT_URL_ROOT = "/edit"
+HOME_PAGE_URL = f"{PAGES_URL_ROOT}/Home"
+MEDIA_URL_ROOT = "/media"
+SAVE_URL_ROOT = "/save"
+SEARCH_URL_ROOT = "/search"
+SITEMAP_URL_ROOT = "/sitemap"
+STATIC_URL_ROOT = "/static"
+UPLOAD_URL_ROOT = "/uploads"
 
+
+class Handler(http.server.SimpleHTTPRequestHandler):
     def return_html_content(self, content):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
@@ -27,48 +36,51 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        if self.path.startswith("/media") or self.path.startswith("/static"):
+        if self.path.startswith(MEDIA_URL_ROOT) or self.path.startswith(
+            STATIC_URL_ROOT
+        ):
             super().do_GET()
-        elif self.path.startswith("/pages"):
-            name = urllib.parse.unquote(self.path[len("/pages/"):])
+        elif self.path.startswith(PAGES_URL_ROOT):
+            name = urllib.parse.unquote(self.path[len(PAGES_URL_ROOT) + 1 :])
             self.return_html_content(view_page(name))
-        elif self.path.startswith("/edit"):
-            name = urllib.parse.unquote(self.path[len("/edit/"):])
+        elif self.path.startswith(EDIT_URL_ROOT):
+            name = urllib.parse.unquote(self.path[len(EDIT_URL_ROOT) + 1 :])
             self.return_html_content(edit_page(name))
-        elif self.path.startswith("/sitemap"):
+        elif self.path.startswith(SITEMAP_URL_ROOT):
             self.return_html_content(site_map())
-        elif self.path.startswith("/uploads"):
+        elif self.path.startswith(UPLOAD_URL_ROOT):
             self.return_html_content(view_uploads())
         else:
-            print("Redirect to Home page")
-            self.redirect("/pages/Home")
+            self.redirect(HOME_PAGE_URL)
         return
 
     def do_POST(self):
         form = cgi.FieldStorage(
             fp=self.rfile,
             headers=self.headers,
-            environ={"REQUEST_METHOD": "POST",
-                     "CONTENT_TYPE":self.headers["Content-Type"],
-            })
+            environ={
+                "REQUEST_METHOD": "POST",
+                "CONTENT_TYPE": self.headers["Content-Type"],
+            },
+        )
 
         try:
-            if self.path.startswith("/save"):
-                name = urllib.parse.unquote(self.path[len("/save/"):])
+            if self.path.startswith(SAVE_URL_ROOT):
+                name = urllib.parse.unquote(self.path[len(SAVE_URL_ROOT) + 1 :])
                 content = form["content"].value
                 save_page(name, content)
-                self.redirect(f"/pages/{name}")
-            elif self.path.startswith("/uploads"):
+                self.redirect(f"{PAGES_URL_ROOT}/{name}")
+            elif self.path.startswith(UPLOAD_URL_ROOT):
                 directory = form["dir"].value
                 filename = form["newFile"].filename
                 uploaded_data = form["newFile"].file.read()
                 file_upload(directory, filename, uploaded_data)
-                self.redirect(f"/uploads")
-            elif self.path.startswith("/search"):
-                 search_term = form["search"].value
-                 self.return_html_content(search(search_term))
+                self.redirect(UPLOAD_URL_ROOT)
+            elif self.path.startswith(SEARCH_URL_ROOT):
+                search_term = form["search"].value
+                self.return_html_content(search(search_term))
         except IOError:
-            self.send_error(404,"Not Found: %s" % self.path)
+            self.send_error(404, "Not Found: %s" % self.path)
 
 
 def main(port):
@@ -79,8 +91,11 @@ def main(port):
         httpd.server_activate()
         httpd.serve_forever()
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", "--port", help="port to listen on", type=int, default=PORT)
+    parser.add_argument(
+        "-p", "--port", help="port to listen on", type=int, default=PORT
+    )
     args = parser.parse_args()
     main(args.port)
