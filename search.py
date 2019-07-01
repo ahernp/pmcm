@@ -27,7 +27,7 @@ CONTENT_MATCH_ROW = """<li>
 page_cache = {}
 
 
-def load_page_cache():
+def populate_page_cache():
     filenames = os.listdir("data/pages/")
     for filename in filenames:
         with open(f"data/pages/{filename}") as pagefile:
@@ -78,10 +78,6 @@ def search(search_term):
         "content_match_rows": content_match_rows
     })
 
-    if len(name_match_rows) == 0 and len(content_matches) == 0:
-        name_matches = "No matches found"
-        content_matches = ""
-
     context = populate_context({
         "searchterm": f"value=\"{search_term}\"",
         "title": "Search Results",
@@ -94,4 +90,4 @@ def search(search_term):
     html = template_substitution(template, context)
     return html
 
-load_page_cache()
+populate_page_cache()
