@@ -6,6 +6,7 @@ from os import curdir, sep
 
 from page import edit_page, save_page, view_page
 from sitemap import site_map
+from uploads import file_upload, view_uploads
 
 PORT = 8088
 
@@ -17,21 +18,27 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(bytes(content, encoding="UTF-8"))
 
+    def redirect(self, location):
+        self.send_response(301)
+        self.send_header("Content-type", "text/html")
+        self.send_header("Location", location)
+        self.end_headers()
+
     def do_GET(self):
-        try:
-            if self.path.startswith("/media") or self.path.startswith("/static"):
-                super().do_GET()
-            elif self.path.startswith("/pages"):
-                self.return_html_content(view_page(self.path[len("/pages/"):]))
-            elif self.path.startswith("/edit"):
-                self.return_html_content(edit_page(self.path[len("/edit/"):]))
-            elif self.path.startswith("/sitemap"):
-                self.return_html_content(site_map())
-            elif self.path.startswith("/uploads"):
-                self.return_html_content("Uploads")
-            return
-        except IOError:
-            self.send_error(404,"Not Found: %s" % self.path)
+        if self.path.startswith("/media") or self.path.startswith("/static"):
+            super().do_GET()
+        elif self.path.startswith("/pages"):
+            self.return_html_content(view_page(self.path[len("/pages/"):]))
+        elif self.path.startswith("/edit"):
+            self.return_html_content(edit_page(self.path[len("/edit/"):]))
+        elif self.path.startswith("/sitemap"):
+            self.return_html_content(site_map())
+        elif self.path.startswith("/uploads"):
+            self.return_html_content(view_uploads())
+        else:
+            print("Redirect to Home page")
+            self.redirect("/pages/Home")
+        return
 
     def do_POST(self):
         form = cgi.FieldStorage(
@@ -46,10 +53,13 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 name = self.path[len("/save/"):]
                 content = form["content"].value
                 save_page(name, content)
-                self.send_response(301)
-                self.send_header("Content-type", "text/html")
-                self.send_header("Location", f"/pages/{name}")
-                self.end_headers()
+                self.redirect(f"/pages/{name}")
+            elif self.path.startswith("/uploads"):
+                directory = form["dir"].value
+                filename = form["newFile"].filename
+                uploaded_data = form["newFile"].file.read()
+                file_upload(directory, filename, uploaded_data)
+                self.redirect(f"/uploads")
             # elif self.path.startswith("/search"):
             #     searchterm = form["search"].value
             #     self.return_html_content(search(searchterm))

@@ -16,9 +16,9 @@ SITEMAP_TEMPLATE = """<table>
 </table>"""
 
 SITEMAP_ROW = """<tr>
-                <td><a href="/pages/{{name}}">{{name}}</a></td>
-                <td>{{modified_time}}</td>
-            </tr>"""
+        <td><a href="/pages/{{name}}">{{name}}</a></td>
+        <td>{{modified_time}}</td>
+    </tr>"""
 
 def site_map():
     try:
