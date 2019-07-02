@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>{{title}}</title>
+        <title>{title}</title>
         <link href="/static/favicon.ico" rel="shortcut icon" type="image/ico" />
         <link href="/static/css/pure-min.css" rel="stylesheet" />
         <link href="/static/css/jquery.fancybox-3.5.7.min.css" rel="stylesheet" />
@@ -11,13 +11,13 @@
     </head>
     <body>
         <div id="mainmenu">
-            {{mainmenu}}
+            {mainmenu}
             <hr>
             <p><a href="/sitemap">Sitemap</a></p>
             <p><a href="/uploads">Uploads</a></p>
-            {{mainmenu-extra}}
+            {mainmenu-extra}
             <hr>
-            <p>Version {{version}}</p>
+            <p>Version {version}</p>
         </div>
         <div id="sidebar">
             <form action="/search" method="POST">
@@ -25,28 +25,22 @@
                     id="search_string"
                     type="text"
                     name="search"
-                    {{searchterm}}
+                    {searchterm}
                     placeholder="Search"
                     minlength="3"
                     required
                     autofocus>
             </form>
             <h3 title="Most recently visited pages">History</h3>
-            {{history}}
+            {history}
         </div>
         <div id="content">
-            {{content}}
+            {content}
         </div>
         <script src="/static/js/jquery-3.4.1.min.js"></script>
         <script src="/static/js/jquery.fancybox-3.5.7.min.js"></script>
         <script src="/static/js/jquery.dataTables-1.10.18.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $.fancybox.defaults.loop = true;
-                $("a:has(img)").not("#logo").attr({"data-fancybox": "gallery", "data-caption": function(i, val) {return $(this).children("img:first").attr("title")}});
-                $('table').not('.non-datatable').DataTable({"aaSorting": []});
-            });
-        </script>
-        {{scripts-extra}}
+        {script}
+        {scripts-extra}
     </body>
 </html>

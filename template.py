@@ -5,29 +5,17 @@ import re
 from constants import PAGES_PATH
 from history import format_history, read_history
 
+SCRIPT = """<script type="text/javascript">
+    $(document).ready(function() {
+        $.fancybox.defaults.loop = true;
+        $("a:has(img)").not("#logo").attr({"data-fancybox": "gallery", "data-caption": function(i, val) {return $(this).children("img:first").attr("title")}});
+        $('table').not('.non-datatable').DataTable({"aaSorting": []});
+    });
+</script>"""
+
 BASE_TEMPLATE = "template.html"
 DELIMITERS_LENGTH = 4
 MARKDOWN_EXTENSIONS = ["extra", "tables", "toc"]
-
-
-def template_substitution(template, replacements):
-    substitutions = []
-
-    for old_string, new_string in replacements.items():
-        starts = [
-            match.start() for match in re.finditer("{{%s}}" % old_string, template)
-        ]
-        length = len(old_string) + DELIMITERS_LENGTH
-        offsets = [(start, start + length) for start in starts]
-        for (start, end) in offsets:
-            substitutions.append((start, end, new_string))
-
-    substitutions.sort(reverse=True)
-
-    for (start, end, new_string) in substitutions:
-        template = template[0:start] + new_string + template[end:]
-
-    return template
 
 
 def get_template():
@@ -44,9 +32,10 @@ def populate_context(kwargs):
         "title": "",
         "mainmenu": markdown_to_html(read_main_menu()),
         "mainmenu-extra": "",
-        "version": "0.5.0",
+        "version": "0.6.0",
         "history": format_history(read_history()),
         "content": "",
+        "script": SCRIPT,
         "scripts-extra": "",
         "searchterm": "",
     }
