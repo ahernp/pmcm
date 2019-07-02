@@ -83,8 +83,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_error(404, "Not Found: %s" % self.path)
 
 
+class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    pass
+
 def main(port):
-    with socketserver.TCPServer(("", port), Handler, bind_and_activate=False) as httpd:
+    with ThreadedTCPServer(("", port), Handler, bind_and_activate=False) as httpd:
         print("serving at port", port)
         httpd.allow_reuse_address = True
         httpd.server_bind()
