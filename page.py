@@ -4,11 +4,7 @@ import os
 from constants import PAGES_PATH
 from history import update_history
 from search import page_cache
-from template import (
-    get_template,
-    markdown_to_html,
-    populate_context,
-)
+from template import get_template, markdown_to_html, populate_context
 
 EDIT_MAINMENU_EXTRA = """<hr>
 <p><a href="/pages/{name}">View</a></p>
@@ -37,10 +33,13 @@ def edit_page(name):
         page_content = escape(read_page(name))
     except IOError as e:
         page_content = ""
-    context = populate_context({
-        "title": name,
-        "content": EDIT_TEMPLATE.format(name=name, content=page_content),
-        "mainmenu-extra": EDIT_MAINMENU_EXTRA.format(name=name)})
+    context = populate_context(
+        {
+            "title": name,
+            "content": EDIT_TEMPLATE.format(name=name, content=page_content),
+            "mainmenu-extra": EDIT_MAINMENU_EXTRA.format(name=name),
+        }
+    )
     return template.format(**context)
 
 
@@ -49,10 +48,13 @@ def view_page(name):
         template = get_template()
         page_content = read_page(name)
         update_history(name)
-        context = populate_context({
-            "title": name,
-            "content": markdown_to_html("[TOC]\n" + page_content),
-            "mainmenu-extra": VIEW_MAINMENU_EXTRA.format(name=name)})
+        context = populate_context(
+            {
+                "title": name,
+                "content": markdown_to_html("[TOC]\n" + page_content),
+                "mainmenu-extra": VIEW_MAINMENU_EXTRA.format(name=name),
+            }
+        )
         html = template.format(**context)
         page_cache[name] = page_content
         return html

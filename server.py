@@ -86,6 +86,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
+
 def main(port):
     with ThreadedTCPServer(("", port), Handler, bind_and_activate=False) as httpd:
         print("serving at port", port)

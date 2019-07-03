@@ -41,10 +41,15 @@ def view_uploads():
         for filename in filenames:
             mtime = os.path.getmtime(os.path.join(directory_path, filename))
             modified_time = datetime.fromtimestamp(mtime).isoformat()
-            upload_rows += UPLOAD_ROW.format(dir=directory, name=filename, modified_time=modified_time)
-    context = populate_context({
-        "title": "Sitemap",
-        "content": UPLOADS_TEMPLATE.format(upload_rows=upload_rows)})
+            upload_rows += UPLOAD_ROW.format(
+                dir=directory, name=filename, modified_time=modified_time
+            )
+    context = populate_context(
+        {
+            "title": "Sitemap",
+            "content": UPLOADS_TEMPLATE.format(upload_rows=upload_rows),
+        }
+    )
     return template.format(**context)
 
 

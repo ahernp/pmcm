@@ -31,7 +31,10 @@ def site_map():
         mtime = os.path.getmtime(os.path.join(PAGES_PATH, filename))
         modified_time = datetime.fromtimestamp(mtime).isoformat()
         sitemap_rows += SITEMAP_ROW.format(name=filename, modified_time=modified_time)
-    context = populate_context({
-        "title": "Sitemap",
-        "content": SITEMAP_TEMPLATE.format(sitemap_rows=sitemap_rows)})
+    context = populate_context(
+        {
+            "title": "Sitemap",
+            "content": SITEMAP_TEMPLATE.format(sitemap_rows=sitemap_rows),
+        }
+    )
     return template.format(**context)

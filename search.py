@@ -40,11 +40,11 @@ def search(search_term):
         for filename in filenames:
             match = regex.search(filename)
             if match:
-                name_match_rows.append(
-                    NAME_MATCH_ROW.format(name=filename))
+                name_match_rows.append(NAME_MATCH_ROW.format(name=filename))
         return NAME_MATCHES.format(
             number_name_matches=str(len(name_match_rows)),
-            name_match_rows= "\n".join(name_match_rows))
+            name_match_rows="\n".join(name_match_rows),
+        )
 
     def find_content_matches(regex):
         content_matches = []
@@ -60,9 +60,10 @@ def search(search_term):
                 content_matches.append(
                     {
                         "content": "{prefix}<b>{match}</b>{suffix}".format(
-                            prefix=content[prev_line_end_pos:match.start()],
-                            match=content[match.start():match.end()],
-                            suffix=content[match.end():next_line_end_pos]),
+                            prefix=content[prev_line_end_pos : match.start()],
+                            match=content[match.start() : match.end()],
+                            suffix=content[match.end() : next_line_end_pos],
+                        ),
                         "name": filename,
                         "number_content_matches": str(len(regex.findall(content))),
                     }
@@ -79,7 +80,8 @@ def search(search_term):
 
         return CONTENT_MATCHES.format(
             number_content_pages=str(len(content_matches)),
-            content_match_rows= content_match_rows)
+            content_match_rows=content_match_rows,
+        )
 
     regex = re.compile(search_term, re.IGNORECASE)
     template = get_template()
@@ -88,13 +90,17 @@ def search(search_term):
     name_matches = find_name_matches(regex, filenames)
     content_matches = find_content_matches(regex)
 
-    context = populate_context({
-        "searchterm": f'value="{search_term}"',
-        "title": "Search Results",
-        "content": SEARCH_TEMPLATE.format(
-            search_term=search_term,
-            name_matches=name_matches,
-            content_matches=content_matches)})
+    context = populate_context(
+        {
+            "searchterm": f'value="{search_term}"',
+            "title": "Search Results",
+            "content": SEARCH_TEMPLATE.format(
+                search_term=search_term,
+                name_matches=name_matches,
+                content_matches=content_matches,
+            ),
+        }
+    )
 
     return template.format(**context)
 
