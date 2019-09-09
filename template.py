@@ -1,6 +1,7 @@
 import markdown
 import os
 import re
+import time
 
 from constants import PAGES_PATH
 from history import format_history, read_history
@@ -32,12 +33,13 @@ def populate_context(kwargs):
         "title": "",
         "mainmenu": markdown_to_html(read_main_menu()),
         "mainmenu-extra": "",
-        "version": "0.6.0",
+        "version": "1.0.0",
         "history": format_history(read_history()),
         "content": "",
         "script": SCRIPT,
         "scripts-extra": "",
         "searchterm": "",
+        "loadtime": time.strftime("%a %Y-%m-%d %H:%M:%S", time.localtime()),
     }
     return {**context, **kwargs}
 
