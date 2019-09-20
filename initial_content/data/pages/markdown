@@ -1,0 +1,90 @@
+# Markdown
+
+Examples of Markdown and corresponding output used on this site.
+
+The full Markdown syntax specification is available at 
+<http://daringfireball.net/projects/markdown/syntax>.
+
+This site uses the
+[gomarkdown](https://github.com/gomarkdown/markdown)
+markdown parser and HTML renderer.
+
+## Inline
+
+Element |Markdown    | Output
+--------|------------|------------------------
+Emphasis|`*Emphasis*`|*Emphasis*
+String  |`**Strong**`|**Strong**
+Strikethrough  |`~~Strikethrough~~`|~~Strikethrough~~
+Code    |<code>\`Code\`</code>    |`Code`
+Link    |`[ahernp.com](http://ahernp.com "Ahern, Paul")`|[ahernp.com](http://ahernp.com "Ahern, Paul")
+Image   |`![Gougane Barra](/media/thumb/Gougane.jpg "Gougane Barra")`|![Gougane Barra](/media/thumb/Gougane.jpg "Gougane Barra")
+Thumbnail|`[![Gougane](/media/thumb/Gougane.jpg "Church at Gougane Barra")](/media/img/Gougane.jpg)`|[![Gougane](/media/thumb/Gougane.jpg "Church at Gougane Barra")](/media/img/Gougane.jpg)
+Title   |`# Title`|<h1>Title</h1>
+Heading|`## Heading`|<h2>Heading</h2>
+
+## Lists
+
+`* Item`
+
+* Item
+
+~~~~
+1. Item
+1. Item
+~~~~
+
+1. Item
+1. Item
+
+### Nested
+
+Indent each level by an additional 4 spaces.
+
+    1.  Install package **numlockx**.
+    1.  Setup Local LAMP server for development:
+        1. `sudo tasksel install lamp-server`
+        1. `sudo apt-get install phpmyadmin`
+
+1.  Install package **numlockx**.
+1.  Setup Local LAMP server for development:
+    1. `sudo tasksel install lamp-server`
+    1. `sudo apt-get install phpmyadmin`
+
+## Block
+
+### Code
+
+Treble backticks <code>```</code> or indent  by 4 spaces.
+
+1. Use `<code></code>` tags to have code block within list indented:
+<code>
+Code
+Block
+</code>
+1. Then the list can continue afterwards.
+
+### Block Quote
+
+    > In a hole in the ground there lived a hobbit. 
+    > Not a nasty damp smelly hole filled with the
+    > ends of worms and things. Nor a dry sandy hole 
+    > with nothing in it to sit down on or eat. 
+    > This was a hobbit-hole and that means comfort.
+
+> In a hole in the ground there lived a hobbit. Not a nasty damp smelly hole filled with the
+> ends of worms and things. Nor a dry sandy hole with nothing in it to sit down on or eat. 
+> This was a hobbit-hole and that means comfort.
+
+### Tables
+
+    Header 1 | Header 2
+    ---------|---------
+    Cell 1,1 | Cell 1,2
+    Cell 2,1 | Cell 2,2
+
+<table class="non-datatable">
+<tr><th>Header 1</th><th>Header 2</th></tr>
+<tr><td>Cell 1,1</td><td>Cell 1,2</td></tr>
+<tr><td>Cell 2,1</td><td>Cell 2,2</td></tr>
+</table>

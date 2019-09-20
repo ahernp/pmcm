@@ -1,0 +1,78 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <title>Compare</title>
+      <script type = "text/javascript">/* <![CDATA[ */
+    var input1;
+    var input2;
+    var outputString;
+    var pos1 = 0;
+    var pos2 = 0;
+    function processInputs() {
+      input1 = document.getElementById("input1").value;
+      input2 = document.getElementById("input2").value;
+      var inputLines1 = input1.split("\n");
+      var inputLines2 = input2.split("\n");
+      inputLines1.sort();
+      inputLines2.sort();
+      outputString = ""; pos1 = 0; pos2 = 0;
+      var countMatches = 0;
+      var countInserts = 0;
+      var countDeletes = 0;
+      while (pos1 < inputLines1.length && pos2 < inputLines2.length) {
+        if (inputLines1[pos1] > inputLines2[pos2]) {
+          outputString = outputString + "I:" + inputLines2[pos2] + "\n";
+          pos2 = pos2 + 1;
+          countInserts = countInserts + 1;
+        }
+        else if (inputLines1[pos1] < inputLines2[pos2]) {
+          outputString = outputString + "D:" + inputLines1[pos1] + "\n";
+          pos1 = pos1 + 1;
+          countDeletes = countDeletes + 1;
+        }
+        else {
+          pos1 = pos1 + 1;
+          pos2 = pos2 + 1;
+          countMatches = countMatches + 1;
+        }
+      }
+      while (pos1 < inputLines1.length) {
+        outputString = outputString + "D:" + inputLines1[pos1] + "\n";
+        pos1 = pos1 + 1;
+        countDeletes = countDeletes + 1;
+      }
+      while (pos2 < inputLines2.length) {
+        outputString = outputString + "I:" + inputLines2[pos2] + "\n";
+        pos2 = pos2 + 1;
+        countInserts = countInserts + 1;
+      }
+      outputString = "Results: " + countMatches + " matches; " + countInserts + " inserts; " + countDeletes + " deletes.\n" + outputString;
+      document.getElementById("outputdata").value = outputString;
+    }
+      /* ]]> */</script>
+		<link rel="shortcut icon" href="/static/favicon.ico" type="image/ico" />
+   </head>
+
+   <body>
+      <h1>Compare two lists</h1>
+      <p>Sort and compare inputs. If line in input1 is missing from input2 then it is included in output with the prefix "D:". If line in input2 is missing from input1 then it is included in output with the prefix "I:".</p>
+      <p><label>Input1:<br />
+         <textarea id = "input1" rows = "4" cols = "56">
+Record1
+Record3
+Record4</textarea></label></p>
+      <p><label>Input2:<br />
+         <textarea id = "input2" rows = "4" cols = "56">
+Record1
+Record2
+Record3</textarea></label></p>
+      <p><input type = "submit" value = "Sort &amp; Compare" onclick = "processInputs()" /></p>   
+      <p><label>Output:<br />
+         <textarea id = "outputdata" rows = "4" cols = "56">
+Results: 2 matches; 1 inserts; 1 deletes.
+I:Record2
+D:Record4</textarea></label></p>
+   </body>
+</html>

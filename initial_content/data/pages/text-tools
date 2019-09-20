@@ -1,0 +1,7 @@
+# Text Manipulation Tools
+
+* [Cardgen](/pages/cardgen): Repeatedly generate structured text from a template.
+* [Compare](/pages/compare-tool): Sort and compare two lists of records.
+* [Deduplicate](/pages/deduplicate-tool): Sort and remove duplicates from a list of records.
+* [Match](/pages/match-tool): Keep or exclude matching records.
+* [Word Count](/pages/wordcount-tool): Count numbers of each word in a text.

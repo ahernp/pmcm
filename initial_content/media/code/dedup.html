@@ -1,0 +1,50 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <title>Deduplicate</title>
+      <script type = "text/javascript">/* <![CDATA[ */
+        var inputString;
+        var outputString;
+        var pos = 0;
+        function sortDedup() {
+            inputString = document.getElementById("input").value;
+            var inputLines = inputString.split("\n");
+            inputLines.sort();
+            outputString = ""; pos = 0;
+            var lengthLess1 = inputLines.length - 1;
+            while (pos < lengthLess1) {
+                if (inputLines[pos] != inputLines[pos + 1]) 
+                    outputString = outputString + inputLines[pos] + "\n";
+                pos = pos + 1;
+            }
+            
+            if (inputLines.length == 0 || inputLines.length == 1)
+                outputString = inputString;
+            else 
+                outputString = outputString + inputLines[lengthLess1] + "\n";
+            
+            document.getElementById("outputdata").value = outputString;
+        }
+      /* ]]> */</script>
+	<link rel="shortcut icon" href="/static/favicon.ico" type="image/ico" /> 
+</head>
+
+   <body>
+      <h1>Sort and Deduplicate</h1>
+      <p>Sort and remove duplicates from a list:</p>
+      <p><label>Input:<br />
+         <textarea id = "input" rows = "4" cols = "56">
+Record3
+Record4
+Record4
+Record1</textarea></label></p>
+      <p><input type = "submit" value = "Run" onclick = "sortDedup()" /></p>   
+      <p><label>Output:<br />
+         <textarea id = "outputdata" rows = "4" cols = "56">
+Record1
+Record3
+Record4</textarea></label></p>
+   </body>
+</html>

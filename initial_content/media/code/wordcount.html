@@ -1,0 +1,75 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+        <title>Count Words</title>
+        <script type = "text/javascript">
+            function slugify(string) {
+                const a = 'àáäâãåăæąçćčđďèéěėëêęğǵḧìíïîįłḿǹńňñòóöôœøṕŕřßşśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;'
+                const b = 'aaaaaaaaacccddeeeeeeegghiiiiilmnnnnooooooprrsssssttuuuuuuuuuwxyyzzz------'
+                const p = new RegExp(a.split('').join('|'), 'g')
+
+                return string.toString().toLowerCase()
+                    .replace(/\s+/g, '-') // Replace spaces with -
+                    .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+                    .replace(/&/g, '-and-') // Replace & with 'and'
+                    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+                    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+                    .replace(/^-+/, '') // Trim - from start of text
+                    .replace(/-+$/, '') // Trim - from end of text
+            };
+            function processInputs() {
+                input = slugify(document.getElementById("input").value);
+                stopwords = document.getElementById("stopwords").value.toLowerCase();
+
+                var inputWords = input.split("-");
+                var stopwords = stopwords.split(/\n| /);
+
+                words = {}
+
+                inputPos = 0;
+                for (inputPos = 0; inputPos < inputWords.length; inputPos++) {
+                    let word = inputWords[inputPos];
+                    if (!stopwords.includes(word)) {
+                        if (words[word] === undefined)
+                            words[word] = 1;
+                        else
+                            words[word] += 1;
+                    }
+                };
+
+                var wordsArray = []
+                for (var word in words) {
+                    wordsArray.push({"word": word, "count": words[word]});
+                };
+                wordsArray.sort(function(a, b){return b["count"]-a["count"]});
+
+                output = "";
+                for (var i = 0; i < wordsArray.length; i++) {
+                    output += wordsArray[i]["word"] + ": " + wordsArray[i]["count"] + "\n"
+                };
+                document.getElementById("output").value = output;
+            }
+    </script>
+        <link rel="shortcut icon" href="/static/favicon.ico" type="image/ico" />
+   </head>
+
+   <body>
+      <h1>Count Numbers of Words</h1>
+      <p><label>Input:<br />
+         <textarea id = "input" rows = "4" cols = "56">
+one two two
+three three three</textarea></label></p>
+      <p><label>Ignore:<br />
+         <textarea id = "stopwords" rows = "4" cols = "56">
+a all an and any are as at be by for from have i in is it its me need not of on or our that the this to we you</textarea></label></p>
+
+      <p><input type = "submit" value = "Count" onclick = "processInputs()" /></p>
+      <p><label>Output:<br />
+         <textarea id = "output" rows = "10" cols = "56">
+three: 3
+two: 2
+one: 1</textarea></label></p>
+   </body>
+</html>

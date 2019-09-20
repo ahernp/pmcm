@@ -1,0 +1,35 @@
+# Help
+
+This desktop wiki was inspired by [TiddlyWiki](https://tiddlywiki.com) classic
+([sample](https://ahernp.com/media/download/tw.html)).
+
+This is a Python application which runs a web server for local use only. A firewall should be used to prevent remote access to this server.
+
+Its content consists of:
+
+* Markdown pages (stored in the `data/pages` directory).
+* Uploaded pages (stored under the `media` directory).
+
+These should be backed up regularly.
+
+## Usage
+
+### Navigation
+
+The topmost menu on the left is controlled by the [Main Menu](/pages/main-menu) page. This should contain the most frequently used pages.
+
+That menu also contains links to a [Sitemap](/sitemap) listing all of the pages in the wiki as well as [Uploads](/uploads) which lists all files "uploaded" to the wiki (such as images, documents and code).
+
+Click on the ToC button to toggle the display of a Table of Contents for the current page. Each header in the page is lined to in the ToC.
+
+On the right of the page is a search field. Entering text and pressing enter searches through the pages.
+
+Below that is a list of links to the most recently visited pages.
+
+Links beginning with `/` (except those beginning `/media/`) are rendered without underlines. This makes it easier to see external links.
+
+### Editing
+
+Edit pages by clicking on "Edit" in the menu on the left.
+
+Create new pages by adding a link to an existing page with a relative url in the form `[]New Page](/pages/new page` (e.g. [New Page](/pages/New Page)).
