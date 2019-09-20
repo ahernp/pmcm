@@ -20,7 +20,7 @@ The topmost menu on the left is controlled by the [Main Menu](/pages/main-menu) 
 
 That menu also contains links to a [Sitemap](/sitemap) listing all of the pages in the wiki as well as [Uploads](/uploads) which lists all files "uploaded" to the wiki (such as images, documents and code).
 
-Click on the ToC button to toggle the display of a Table of Contents for the current page. Each header in the page is lined to in the ToC.
+Click on the ToC button to toggle the display of a Table of Contents for the current page. Each header in the page is linked to in the ToC.
 
 On the right of the page is a search field. Entering text and pressing enter searches through the pages.
 
