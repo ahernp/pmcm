@@ -23,7 +23,7 @@ Tested on Ubuntu 18.04.
 1. `pip install markdown`
 1. `cp -r initial_content/data .` Create and populate data directories.
 1. `cp -r initial_content/media .` Create and populate media directories.
-1. `python server.py -p 8088` Start application/server.
+1. `python3 server.py -p 8088` Start application/server.
 1. Visit <http://localhost:8088/> to use Wiki tool.
 
 Read the [Help](http://localhost:8088/pages/Help) page in wiki for instructions on how to use the tool.
