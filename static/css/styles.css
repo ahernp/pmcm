@@ -1,5 +1,5 @@
 html, button, input, select, .pure-g [class *= "pure-u"] {
-    font-family: Liberation Sans;
+    font-family: sans-serif;
 }
 
 textarea {
