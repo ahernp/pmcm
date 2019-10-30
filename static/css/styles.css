@@ -1,5 +1,10 @@
-html, button, input, select, textarea, .pure-g [class *= "pure-u"] {
-    font-family: arial,helvetica;
+html, button, input, select, .pure-g [class *= "pure-u"] {
+    font-family: Liberation Sans;
+}
+
+textarea {
+    font-family: monospace;
+    font-size: 1.2em;
 }
 
 body  {
