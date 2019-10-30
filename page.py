@@ -51,7 +51,7 @@ def view_page(name):
         context = populate_context(
             {
                 "title": name,
-                "content": markdown_to_html("[TOC]\n" + page_content),
+                "content": markdown_to_html("[TOC]\n\n" + page_content),
                 "mainmenu-extra": VIEW_MAINMENU_EXTRA.format(name=name),
             }
         )
