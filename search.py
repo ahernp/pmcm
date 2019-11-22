@@ -42,7 +42,7 @@ def search(search_term):
             if match:
                 name_match_rows.append(NAME_MATCH_ROW.format(name=filename))
         return NAME_MATCHES.format(
-            number_name_matches=str(len(name_match_rows)),
+            number_name_matches=len(name_match_rows),
             name_match_rows="\n".join(name_match_rows),
         )
 
@@ -65,7 +65,7 @@ def search(search_term):
                             suffix=content[match.end() : next_line_end_pos],
                         ),
                         "name": filename,
-                        "number_content_matches": str(len(regex.findall(content))),
+                        "number_content_matches": len(regex.findall(content)),
                     }
                 )
 
