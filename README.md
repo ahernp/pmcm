@@ -3,7 +3,7 @@
 Python Markdown Content Manager.
 
 This is a desktop wiki tool to manage notes and files,
-inspired by [TiddlyWiki](https://tiddlywiki.com/).
+inspired by [TiddlyWiki classic](https://classic.tiddlywiki.com/).
 
 The content is written in
 [markdown](https://daringfireball.net/projects/markdown/syntax).
