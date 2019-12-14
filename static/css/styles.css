@@ -38,8 +38,14 @@ a[href^="/"] {
     font-weight: bold;
 }
 
+a[href^="http://localhost"] {
+    text-decoration-line: underline;
+    text-decoration-style: dashed;
+}
+
 a[href^="/media/"] {
-    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-style: dashed;
     font-weight: normal;
 }
 
