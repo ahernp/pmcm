@@ -10,16 +10,16 @@ EDIT_MAINMENU_EXTRA = """<hr>
 <p><a href="/pages/{name}">View</a></p>
 <p><a href="/pages/markdown">Markdown</a></p>"""
 
-EDIT_TEMPLATE = """<form action="/save/{name}" method="POST" class="pure-form pure-form-stacked">
+EDIT_TEMPLATE = """<form action="/save/{name}" method="POST">
     <label for="content">Edit Markdown content</label>
     <textarea name="content" rows="20" cols="60">{content}</textarea>
-    <button type="submit" class="pure-button pure-button-primary">Save</button>
+    <button type="submit" style="margin-top: 1em">Save</button>
 </form>"""
 
 VIEW_MAINMENU_EXTRA = """<hr>
 <p><a href="/edit/{name}">Edit</a></p>
 <hr>
-<button title="Toggle display of page Table of Contents" onClick="$('div.toc').toggle()" class="pure-button">ToC</button>"""
+<button title="Toggle display of page Table of Contents" onClick="$('div.toc').toggle()">ToC</button>"""
 
 
 def read_page(name):

@@ -4,7 +4,7 @@ import os
 from constants import MEDIA_ROOT
 from template import get_template, populate_context
 
-UPLOADS_TEMPLATE = """<form action="/uploads/" method="post" class="pure-form" enctype="multipart/form-data">
+UPLOADS_TEMPLATE = """<form action="/uploads/" method="post" enctype="multipart/form-data">
     <label for="content">Upload file:</label>
     <input type="file" name="newFile" required />
     <label for="dir">Directory:</label>
@@ -14,7 +14,7 @@ UPLOADS_TEMPLATE = """<form action="/uploads/" method="post" class="pure-form" e
         <option value="doc">doc</option>
         <option value="thumb">thumb</option>
     </select>
-    <button type="submit" class="pure-button pure-button-primary">Upload</button>
+    <button type="submit">Upload</button>
 </form>
 <h2>Uploaded Files</h2>
 <table>
