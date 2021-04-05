@@ -10,9 +10,10 @@ EDIT_MAINMENU_EXTRA = """<hr>
 <p><a href="/pages/{name}">View</a></p>
 <p><a href="/pages/markdown">Markdown</a></p>"""
 
-EDIT_TEMPLATE = """<form action="/save/{name}" method="POST">
-    <label for="content">Edit Markdown content</label>
-    <textarea name="content" rows="20" cols="60">{content}</textarea>
+EDIT_TEMPLATE = """<h1>Edit</h1>
+<form action="/save/{name}" method="POST">
+    <label for="contentId">Edit Markdown content</label>
+    <textarea id="contentId" name="content" rows="20" cols="60">{content}</textarea>
     <button type="submit" style="margin-top: 1em">Save</button>
 </form>"""
 

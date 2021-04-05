@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8"/>
         <title>{title}</title>
@@ -9,7 +9,7 @@
         <link href="/static/css/styles.css" rel="stylesheet">
     </head>
     <body>
-        <div id="mainmenu">
+        <div id="mainmenu" role="navigation" aria-label="Main Menu">
             {mainmenu}
             <hr>
             <p><a href="/sitemap">Sitemap</a></p>
@@ -19,12 +19,13 @@
             <p>Version {version}</p>
             <p>Loaded: {loadtime}</p>
         </div>
-        <div id="sidebar">
+        <div id="sidebar" role="navigation" aria-label="Sidebar, search and history">
             <form action="/search" method="POST">
                 <input
                     id="search_string"
                     type="text"
                     name="search"
+                    aria-label="Search"
                     {searchterm}
                     placeholder="Search"
                     minlength="3"
@@ -34,7 +35,7 @@
             <h3 title="Most recently visited pages">History</h3>
             {history}
         </div>
-        <div id="content">
+        <div id="content" role="main">
             {content}
         </div>
         <script src="/static/js/jquery-3.4.1.min.js"></script>
