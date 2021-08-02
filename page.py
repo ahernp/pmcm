@@ -1,5 +1,4 @@
 from html import escape
-import os
 
 from constants import PAGES_PATH
 from history import update_history
@@ -20,11 +19,12 @@ EDIT_TEMPLATE = """<h1>Edit</h1>
 VIEW_MAINMENU_EXTRA = """<hr>
 <p><a href="/edit/{name}">Edit</a></p>
 <hr>
-<button title="Toggle display of page Table of Contents" onClick="$('div.toc').toggle()">ToC</button>"""
+<button title="Toggle display of page Table of Contents"
+    onClick="$('div.toc').toggle()">ToC</button>"""
 
 
 def read_page(name):
-    with open(os.path.join(PAGES_PATH, name)) as pagefile:
+    with open(PAGES_PATH / name) as pagefile:
         return pagefile.read()
 
 
@@ -32,7 +32,7 @@ def edit_page(name):
     template = get_template()
     try:
         page_content = escape(read_page(name))
-    except IOError as e:
+    except IOError:
         page_content = ""
     context = populate_context(
         {
@@ -59,11 +59,11 @@ def view_page(name):
         html = template.format(**context)
         page_cache[name] = page_content
         return html
-    except IOError as e:
+    except IOError:
         return edit_page(name)
 
 
 def save_page(name, content):
-    with open(os.path.join(PAGES_PATH, name), "w") as pagefile:
+    with open(PAGES_PATH / name, "w") as pagefile:
         pagefile.write(content)
     page_cache[name] = content

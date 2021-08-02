@@ -1,5 +1,6 @@
-import os
+from pathlib import Path
+
 
 MEDIA_ROOT = "media"
-PAGES_PATH = os.path.join("data", "pages")
+PAGES_PATH = Path("data") / "pages"
 PAGES_URL_ROOT = "/pages"

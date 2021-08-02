@@ -1,5 +1,4 @@
 from datetime import datetime
-import os
 
 from constants import PAGES_PATH
 from template import get_template, populate_context
@@ -24,13 +23,12 @@ SITEMAP_ROW = """<tr>
 
 def site_map():
     template = get_template()
-    filenames = os.listdir(PAGES_PATH)
-    filenames.sort()
     sitemap_rows = ""
-    for filename in filenames:
-        mtime = os.path.getmtime(os.path.join(PAGES_PATH, filename))
-        modified_time = datetime.fromtimestamp(mtime).isoformat()
-        sitemap_rows += SITEMAP_ROW.format(name=filename, modified_time=modified_time)
+    for file_path in PAGES_PATH.iterdir():
+        modified_time = datetime.fromtimestamp(file_path.stat().st_mtime).isoformat()
+        sitemap_rows += SITEMAP_ROW.format(
+            name=file_path.name, modified_time=modified_time
+        )
     context = populate_context(
         {
             "title": "Sitemap",

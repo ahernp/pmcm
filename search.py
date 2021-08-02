@@ -1,4 +1,3 @@
-import os
 import re
 
 from constants import PAGES_PATH
@@ -28,10 +27,9 @@ page_cache = {}
 
 
 def populate_page_cache():
-    filenames = os.listdir(PAGES_PATH)
-    for filename in filenames:
-        with open(os.path.join(PAGES_PATH, filename)) as pagefile:
-            page_cache[filename] = pagefile.read()
+    for file_path in PAGES_PATH.iterdir():
+        with open(file_path) as pagefile:
+            page_cache[file_path.name] = pagefile.read()
 
 
 def search(search_term):
@@ -85,7 +83,7 @@ def search(search_term):
 
     regex = re.compile(search_term, re.IGNORECASE)
     template = get_template()
-    filenames = os.listdir(PAGES_PATH)
+    filenames = [file_path.name for file_path in PAGES_PATH.iterdir()]
     filenames.sort()
     name_matches = find_name_matches(regex, filenames)
     content_matches = find_content_matches(regex)

@@ -1,5 +1,5 @@
 from datetime import datetime
-import os
+from pathlib import Path
 
 from constants import MEDIA_ROOT
 from template import get_template, populate_context
@@ -35,14 +35,13 @@ def view_uploads():
     template = get_template()
     upload_rows = ""
     for directory in UPLOAD_DIRS:
-        directory_path = os.path.join(MEDIA_ROOT, directory)
-        filenames = os.listdir(directory_path)
-        filenames.sort()
-        for filename in filenames:
-            mtime = os.path.getmtime(os.path.join(directory_path, filename))
-            modified_time = datetime.fromtimestamp(mtime).isoformat()
+        directory_path = Path(MEDIA_ROOT) / directory
+        for file_path in directory_path.iterdir():
+            modified_time = datetime.fromtimestamp(
+                file_path.stat().st_mtime
+            ).isoformat()
             upload_rows += UPLOAD_ROW.format(
-                dir=directory, name=filename, modified_time=modified_time
+                dir=directory, name=file_path.name, modified_time=modified_time
             )
     context = populate_context(
         {
@@ -54,5 +53,5 @@ def view_uploads():
 
 
 def file_upload(directory, filename, data):
-    with open(os.path.join(MEDIA_ROOT, directory, filename), "wb") as uploadfile:
+    with open(Path(MEDIA_ROOT) / directory / filename, "wb") as uploadfile:
         uploadfile.write(data)
