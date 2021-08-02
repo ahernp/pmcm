@@ -10,7 +10,7 @@ from search import search
 from sitemap import site_map
 from uploads import file_upload, view_uploads
 
-PORT = 7713
+PORT_DEFAULT = 7713
 
 EDIT_URL_ROOT = "/edit"
 HOME_PAGE_URL = f"{PAGES_URL_ROOT}/Home"
@@ -99,7 +99,7 @@ def main(port):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-p", "--port", help="port to listen on", type=int, default=PORT
+        "-p", "--port", help="port to listen on", type=int, default=PORT_DEFAULT
     )
     args = parser.parse_args()
     main(args.port)

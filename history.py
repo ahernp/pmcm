@@ -1,9 +1,4 @@
-from pathlib import Path
-
-from constants import PAGES_URL_ROOT
-
-HISTORY_LENGTH = 20
-HISTORY_FILE_PATH = Path("data") / "history.txt"
+from constants import HISTORY_FILE_PATH, HISTORY_LENGTH, PAGES_URL_ROOT
 
 
 def format_history(history):

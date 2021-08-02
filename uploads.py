@@ -1,8 +1,7 @@
 from datetime import datetime
-from pathlib import Path
 
-from constants import MEDIA_ROOT
 from template import get_template, populate_context
+from constants import MEDIA_ROOT_PATH
 
 UPLOADS_TEMPLATE = """<form action="/uploads/" method="post" enctype="multipart/form-data">
     <label for="content">Upload file:</label>
@@ -35,7 +34,7 @@ def view_uploads():
     template = get_template()
     upload_rows = ""
     for directory in UPLOAD_DIRS:
-        directory_path = Path(MEDIA_ROOT) / directory
+        directory_path = MEDIA_ROOT_PATH / directory
         for file_path in directory_path.iterdir():
             modified_time = datetime.fromtimestamp(
                 file_path.stat().st_mtime
@@ -53,5 +52,5 @@ def view_uploads():
 
 
 def file_upload(directory, filename, data):
-    with open(Path(MEDIA_ROOT) / directory / filename, "wb") as uploadfile:
+    with open(MEDIA_ROOT_PATH / directory / filename, "wb") as uploadfile:
         uploadfile.write(data)
