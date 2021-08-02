@@ -10,7 +10,6 @@ SCRIPT = """<script type="text/javascript">
         $("a:has(img)").not("#logo").attr({"data-fancybox": "gallery", "data-caption": function(i, val) {return $(this).children("img:first").attr("title")}});
         $('table').not('.non-datatable').DataTable({"order": [[ 0, "asc" ]]});
         hljs.highlightAll();
-
     });
 </script>"""
 
