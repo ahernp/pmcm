@@ -12,7 +12,7 @@ Each page of markdown text is stored in separate files in the `data/pages/` dire
 
 Non-markdown files can be "uploaded" and stored in the `media/` directory structure.
 
-Tested on Ubuntu 18.04.
+Tested on Ubuntu 20.04.
 
 ## Setup
 
