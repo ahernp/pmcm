@@ -1,64 +1,73 @@
-<!DOCTYPE html
-     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-   <head>
-        <title>Match</title>
-        <script type = "text/javascript">
-            var input;
-            var keys;
-            var exclude = false;
-            var output;
-            var inputPos = 0;
-            var keyPos = 0;
-            function processInputs() {
-                input = document.getElementById("input").value;
-                keys = document.getElementById("keys").value;
-                exclude = document.getElementById("exclude").checked;
-                var inputRecords = input.split("\n");
-                var keyRecords = keys.split("\n");
-                inputRecords.sort();
-                keyRecords.sort();
-                output = "";
-                inputPos = 0; keyPos = 0;
-                for (inputPos = 0; inputPos < inputRecords.length; inputPos++) {
-                    let matchFound = false;
-                    for (keyPos = 0; keyPos < keyRecords.length; keyPos++) {
-                        if (inputRecords[inputPos].indexOf(keyRecords[keyPos]) > -1) {
-                            matchFound = true;
-                            break;
-                        }
-                    }
-                    if ((!matchFound && exclude) || (matchFound && !exclude))
-                        output = output + inputRecords[inputPos] + '\n';
-                }
-                document.getElementById("output").value = output;
-            }
-    </script>
-        <link rel="shortcut icon" href="/static/favicon.ico" type="image/ico" />
-   </head>
 
-   <body>
-      <h1>Match Records</h1>
-      <p>Keep or exclude matching records.</p>
-      <p><label>Input:<br />
-         <textarea id = "input" rows = "4" cols = "56">
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Match</title>
+    <script type="text/javascript">
+        let input;
+        let keys;
+        let exclude = false;
+        let output;
+        let inputPos = 0;
+        let keyPos = 0;
+        function processInputs() {
+            input = document.getElementById("input").value;
+            keys = document.getElementById("keys").value;
+            exclude = document.getElementById("exclude").checked;
+            let inputRecords = input.split("\n");
+            let keyRecords = keys.split("\n");
+            inputRecords.sort();
+            keyRecords.sort();
+            output = "";
+            inputPos = 0; keyPos = 0;
+            for (inputPos = 0; inputPos < inputRecords.length; inputPos++) {
+                let matchFound = false;
+                for (keyPos = 0; keyPos < keyRecords.length; keyPos++) {
+                    if (inputRecords[inputPos].indexOf(keyRecords[keyPos]) > -1) {
+                        matchFound = true;
+                        break;
+                    }
+                }
+                if ((!matchFound && exclude) || (matchFound && !exclude))
+                    output = output + inputRecords[inputPos] + '\n';
+            }
+            document.getElementById("output").value = output;
+        }
+        function copyToClipboard(id) {
+            let copyText = document.getElementById(id);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+        }
+    </script>
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/ico" />
+</head>
+
+<body>
+    <h1>Match records</h1>
+    <p>Keep or exclude matching records.</p>
+    <p><label>Input:<br />
+            <textarea id="input" rows="4" cols="56">
 Record3
 Record4
 Record4
 Record1</textarea></label></p>
-      <p><label>Keys:<br />
-         <textarea id = "keys" rows = "4" cols = "56">
+    <p><label>Keys:<br />
+            <textarea id="keys" rows="4" cols="56">
 Record1
 Record4</textarea></label></p>
-      <p><label>Exclude matches:
-         <input id = "exclude" type = "checkbox" name = "exclude" value = "checked" /></label></p>
+    <p><label>Exclude matches:
+            <input id="exclude" type="checkbox" name="exclude" value="checked" /></label></p>
 
-      <p><input type = "submit" value = "Match" onclick = "processInputs()" /></p>
-      <p><label>Output:<br />
-         <textarea id = "output" rows = "4" cols = "56">
+    <button onclick="processInputs()">Match</button>
+    <button onclick="copyToClipboard('output')">Copy output</button>
+    <p><label>Output:<br />
+            <textarea id="output" rows="4" cols="56" readonly>
 Record4
 Record4
 Record1</textarea></label></p>
-   </body>
+</body>
+
 </html>

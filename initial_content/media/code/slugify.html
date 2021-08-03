@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Slugify</title>
+    <script type="text/javascript">
+        function slugify() {
+            let input = document.getElementById("input").value.trim();
+            let uppercase = input.toUpperCase();
+            let lowercase = input.toLowerCase();
+            let slug = lowercase.replace(/\n/g, ' ')
+                .replace(/[^a-z0-9 -]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+
+            document.getElementById("uppercase").value = uppercase;
+            document.getElementById("lowercase").value = lowercase;
+            document.getElementById("slug").value = slug;
+        }
+        function copyToClipboard(id) {
+            let copyText = document.getElementById(id);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+        };
+    </script>
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/ico" />
+</head>
+
+<body>
+    <h1>Slugify</h1>
+    <p>
+        <label>Input:<br>
+            <input type="text" id="input" name="input" value="Once upon a time.">
+        </label>
+    </p>
+    <button onclick="slugify()">Slugify</button>
+    <p>
+        <label>Uppercase:<br>
+            <input type="text" id="uppercase" name="uppercase" value="ONCE UPON A TIME." readonly>
+            <button onclick="copyToClipboard('uppercase')">Copy</button>
+        </label>
+    </p>
+    <p>
+        <label>Lowercase:<br>
+            <input type="text" id="lowercase" name="lowercase" value="once upon a time." readonly>
+            <button onclick="copyToClipboard('lowercase')">Copy</button>
+        </label>
+    </p>
+    <p>
+        <label>Slug:<br>
+            <input type="text" id="slug" name="slug" value="once-upon-a-time" readonly>
+            <button onclick="copyToClipboard('slug')">Copy</button>
+        </label>
+    </p>
+</body>
+
+</html>
