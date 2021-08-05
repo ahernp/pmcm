@@ -1,7 +1,9 @@
 # Help
 
-This desktop wiki was inspired by [TiddlyWiki](https://tiddlywiki.com) classic
+This desktop wiki was inspired by
+[TiddlyWiki classic](https://classic.tiddlywiki.com/)
 ([sample](https://ahernp.com/media/download/tw.html)).
+[Source Code](https://github.com/ahernp/pmcm)
 
 This is a Python application which runs a web server for local use only. A firewall should be used to prevent remote access to this server.
 
@@ -32,4 +34,4 @@ Links beginning with `/` (except those beginning `/media/`) are rendered without
 
 Edit pages by clicking on "Edit" in the menu on the left.
 
-Create new pages by adding a link to an existing page with a relative url in the form `[]New Page](/pages/new page` (e.g. [New Page](/pages/New Page)).
+Create new pages by adding a link to an existing page with a relative url in the form `[New Page](/pages/new page` (e.g. [New Page](/pages/New Page)).

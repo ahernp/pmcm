@@ -4,4 +4,5 @@
 * [Compare](/pages/compare-tool): Sort and compare two lists of records.
 * [Deduplicate](/pages/deduplicate-tool): Sort and remove duplicates from a list of records.
 * [Match](/pages/match-tool): Keep or exclude matching records.
+* [Slugify](/pages/slugify-tool): Slugify text.
 * [Word Count](/pages/wordcount-tool): Count numbers of each word in a text.

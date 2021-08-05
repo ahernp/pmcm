@@ -5,23 +5,84 @@ Examples of Markdown and corresponding output used on this site.
 The full Markdown syntax specification is available at 
 <http://daringfireball.net/projects/markdown/syntax>.
 
-This site uses the
-[gomarkdown](https://github.com/gomarkdown/markdown)
-markdown parser and HTML renderer.
+This site uses a Python
+[markdown](https://pypi.org/project/Markdown/)
+parser and HTML renderer.
+([Tutorial](https://www.markdowntutorial.com/))
+
+Online editor: <https://dillinger.io/>
 
 ## Inline
 
-Element |Markdown    | Output
---------|------------|------------------------
-Emphasis|`*Emphasis*`|*Emphasis*
-String  |`**Strong**`|**Strong**
-Strikethrough  |`~~Strikethrough~~`|~~Strikethrough~~
-Code    |<code>\`Code\`</code>    |`Code`
-Link    |`[ahernp.com](http://ahernp.com "Ahern, Paul")`|[ahernp.com](http://ahernp.com "Ahern, Paul")
-Image   |`![Gougane Barra](/media/thumb/Gougane.jpg "Gougane Barra")`|![Gougane Barra](/media/thumb/Gougane.jpg "Gougane Barra")
-Thumbnail|`[![Gougane](/media/thumb/Gougane.jpg "Church at Gougane Barra")](/media/img/Gougane.jpg)`|[![Gougane](/media/thumb/Gougane.jpg "Church at Gougane Barra")](/media/img/Gougane.jpg)
-Title   |`# Title`|<h1>Title</h1>
-Heading|`## Heading`|<h2>Heading</h2>
+<table class="non-datatable">
+    <thead>
+        <tr>
+            <th>Element</th>
+            <th>Markdown</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Emphasis</td>
+            <td><code>*Emphasis*</code></td>
+            <td><em>Emphasis</em></td>
+        </tr>
+        <tr>
+            <td>String</td>
+            <td><code>**Strong**</code></td>
+            <td><strong>Strong</strong></td>
+        </tr>
+        <tr>
+            <td>Strikethrough</td>
+            <td><code>&lt;del>Strikethrough&lt;/del></code></td>
+            <td><del>Strikethrough</del></td>
+        </tr>
+        <tr>
+            <td>Code</td>
+            <td><code>`Code`</code></td>
+            <td><code>Code</code></td>
+        </tr>
+        <tr>
+            <td>Highlight Code</td>
+            <td><code>`Code`**`strong`**`code`</code></td>
+            <td><code>Code</code><strong><code>Strong</code></strong><code>Code</code></td>
+        </tr>
+        <tr>
+            <td>Link</td>
+            <td><code>[ahernp.com](http://ahernp.com "Ahern, Paul")</code></td>
+            <td><a href="http://ahernp.com" title="Ahern, Paul">ahernp.com</a></td>
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td><code>![Gougane](/media/thumb/Gougane.jpg "Church at Gougane Barra")</code></td>
+            <td><img alt="Gougane Barra" src="/media/thumb/Gougane.jpg" title="Gougane Barra" /></td>
+        </tr>
+        <tr>
+            <td>Thumbnail</td>
+            <td><code>[![Gougane](/media/thumb/Gougane.jpg "Church at Gougane Barra")](/media/img/Gougane.jpg)</code></td>
+            <td><a href="/media/img/Gougane.jpg"><img alt="Gougane" src="/media/thumb/Gougane.jpg" title="Church at Gougane Barra" /></a></td>
+        </tr>
+        <tr>
+            <td>Title</td>
+            <td><code># Title</code></td>
+            <td><h1>Title</h1></td>
+        </tr>
+        <tr>
+            <td>Heading</td>
+            <td><code>## Heading</code></td>
+            <td><h2>Heading</h2></td>
+        </tr>
+    </tbody>
+</table>
+
+
+Escape backticks by surrounding the text with double-backticks: ``` `` `pwd` `` ``` gives `` `pwd` ``
+
+## Soft Break
+
+Group separate lines together  
+By ending them with two spaces.
 
 ## Lists
 
@@ -57,12 +118,22 @@ Indent each level by an additional 4 spaces.
 
 Treble backticks <code>```</code> or indent  by 4 spaces.
 
-1. Use `<code></code>` tags to have code block within list indented:
-<code>
-Code
+Opening treble backticks can be followed by the language name to aid highlighting:
+
+    ```python
+    import json
+    ```
+
+```python
+import json
+```
+
+1. Use `<pre><code></code></pre>` tags to have code block within list indented:
+<pre><code>Code
 Block
-</code>
+</code></pre>
 1. Then the list can continue afterwards.
+    * Indented bullet point.
 
 ### Block Quote
 
