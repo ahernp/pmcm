@@ -34,4 +34,4 @@ Links beginning with `/` (except those beginning `/media/`) are rendered without
 
 Edit pages by clicking on "Edit" in the menu on the left.
 
-Create new pages by adding a link to an existing page with a relative url in the form `[New Page](/pages/new page` (e.g. [New Page](/pages/New Page)).
+Create new pages by adding a link to an existing page with a relative url in the form `[New Page](/pages/new page)` (e.g. [New Page](/pages/New Page)).
