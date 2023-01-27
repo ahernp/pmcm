@@ -8,7 +8,7 @@ textarea {
 }
 
 body  {
-    font-size: 1em;
+    font-size: 1.3em;
     background-color: #fff;
     color: #000;
     margin: 0;
@@ -17,6 +17,7 @@ body  {
 }
 
 h1, h2, h3, h4, th {
+    font-family: "Dune Rise", sans-serif;
     color: #841;
 }
 
