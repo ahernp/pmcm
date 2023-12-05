@@ -1,5 +1,6 @@
-data/
-media/
+data
+media
 *.pyc
 tags
 .tags*
+venv
