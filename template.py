@@ -32,13 +32,13 @@ def populate_context(kwargs):
         "title": "",
         "mainmenu": markdown_to_html(read_main_menu()),
         "mainmenu-extra": "",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "history": format_history(read_history()),
         "content": "",
         "script": SCRIPT,
         "scripts-extra": "",
         "searchterm": "",
-        "loadtime": time.strftime("%a %Y-%m-%d %H:%M:%S", time.localtime()),
+        "timemeta": f'Loaded: {time.strftime("%a %Y-%m-%d %H:%M:%S", time.localtime())}',
     }
     return {**context, **kwargs}
 

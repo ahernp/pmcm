@@ -1,4 +1,6 @@
+from datetime import datetime
 from html import escape
+import pathlib
 
 from constants import PAGES_PATH
 from history import update_history
@@ -28,6 +30,11 @@ def read_page(name):
         return pagefile.read()
 
 
+def get_time_metadata(name):
+    path = pathlib.Path(PAGES_PATH / name)
+    return datetime.fromtimestamp(path.stat().st_mtime).strftime("%a %Y-%m-%d %H:%M:%S")
+
+
 def edit_page(name):
     template = get_template()
     try:
@@ -54,6 +61,7 @@ def view_page(name):
                 "title": name,
                 "content": markdown_to_html("[TOC]\n\n" + page_content),
                 "mainmenu-extra": VIEW_MAINMENU_EXTRA.format(name=name),
+                "timemeta": f"Updated: {get_time_metadata(name)}",
             }
         )
         html = template.format(**context)
