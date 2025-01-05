@@ -3,13 +3,15 @@
     --background-color: #fff;
     --link-color: #050;
     --code-color: #800;
+    --header-color: #841;
 }
 @media (prefers-color-scheme: dark) {
     :root {
-        --color: #fff;
-        --background-color: #000;
-        --link-color: #080;
-        --code-color: #f00;
+        --color: #e5e9f0;
+        --background-color: #2e3440;
+        --link-color: #a3be8c;
+        --code-color: #bf616a;
+        --header-color: #ebcb8b;
     }
 }
 
@@ -34,7 +36,7 @@ textarea {
 
 h1, h2, h3, h4, th {
     font-family: "Dune Rise", sans-serif;
-    color: #841;
+    color: var(--header-color);
 }
 
 h1 {
@@ -79,7 +81,21 @@ table {
 }
 
 table.dataTable {
-    color: #000;
+    color: var(--color);
+
+    thead {
+        background-color: var(--background-color);
+    }
+}
+
+.dataTables_wrapper .dataTables_filter {
+    color: var(--color);
+    background-color: var(--background-color);
+
+    input {
+        color: var(--color);
+        background-color: var(--background-color);
+    }
 }
 
 table.non-datatable {
@@ -87,7 +103,8 @@ table.non-datatable {
 }
 
 th, td {
-    border: 1px solid #000;
+    border: 1px solid var(--color);
+    background-color: var(--background-color);
 }
 
 #mainmenu {
