@@ -1,3 +1,27 @@
+:root {
+    --color: #000;
+    --background-color: #fff;
+    --link-color: #050;
+    --code-color: #800;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color: #fff;
+        --background-color: #000;
+        --link-color: #080;
+        --code-color: #f00;
+    }
+}
+
+body  {
+    font-size: 1.3em;
+    color: var(--color);
+    background-color: var(--background-color);
+    margin: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
 html, button, input, select {
     font-family: sans-serif;
     font-size: 1em;
@@ -6,15 +30,6 @@ html, button, input, select {
 textarea {
     font-family: monospace;
     font-size: 1.2em;
-}
-
-body  {
-    font-size: 1.3em;
-    background-color: #fff;
-    color: #000;
-    margin: 0;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
 }
 
 h1, h2, h3, h4, th {
@@ -27,7 +42,7 @@ h1 {
 }
 
 a {
-    color: #050;
+    color: var(--link-color);
 }
 
 a:hover {
@@ -54,13 +69,17 @@ a[href^="/media/"] {
 code {
     font-family: monospace;
     font-size: 1.3em;
-    color: #800;
+    color: var(--code-color);
     white-space: pre-wrap;
 }
 
 table {
     border-collapse: collapse;
     text-align: center;
+}
+
+table.dataTable {
+    color: #000;
 }
 
 table.non-datatable {
