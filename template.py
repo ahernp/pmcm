@@ -38,7 +38,7 @@ def populate_context(kwargs):
         "script": SCRIPT,
         "scripts-extra": "",
         "searchterm": "",
-        "timemeta": f'Loaded: {time.strftime("%a %Y-%m-%d %H:%M:%S", time.localtime())}',
+        "timemeta": f"Loaded: {time.strftime('%a %Y-%m-%d %H:%M:%S', time.localtime())}",
     }
     return {**context, **kwargs}
 
