@@ -103,4 +103,5 @@ def search(search_term):
     return template.format(**context)
 
 
-populate_page_cache()
+if not page_cache:
+    populate_page_cache()
