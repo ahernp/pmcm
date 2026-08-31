@@ -12,7 +12,7 @@ def read_history():
         with open(HISTORY_FILE_PATH) as historyfile:
             history = historyfile.read().split("\n")
         return history
-    except IOError:
+    except OSError:
         return []
 
 

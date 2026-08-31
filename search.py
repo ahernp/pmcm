@@ -57,11 +57,7 @@ def search(search_term):
                     next_line_end_pos = len(content)
                 content_matches.append(
                     {
-                        "content": "{prefix}<b>{match}</b>{suffix}".format(
-                            prefix=content[prev_line_end_pos : match.start()],
-                            match=content[match.start() : match.end()],
-                            suffix=content[match.end() : next_line_end_pos],
-                        ),
+                        "content": f"{content[prev_line_end_pos : match.start()]}<b>{content[match.start() : match.end()]}</b>{content[match.end() : next_line_end_pos]}",
                         "name": filename,
                         "number_content_matches": len(regex.findall(content)),
                     }

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from constants import PAGES_PATH
 from template import get_template, populate_context
@@ -25,7 +25,9 @@ def site_map():
     template = get_template()
     sitemap_rows = ""
     for file_path in PAGES_PATH.iterdir():
-        modified_time = datetime.fromtimestamp(file_path.stat().st_mtime).isoformat()
+        modified_time = datetime.fromtimestamp(
+            file_path.stat().st_mtime, tz=timezone.utc
+        ).isoformat()
         sitemap_rows += SITEMAP_ROW.format(
             name=file_path.name, modified_time=modified_time
         )

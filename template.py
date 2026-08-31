@@ -47,5 +47,5 @@ def read_main_menu():
     try:
         with open(PAGES_PATH / "main-menu") as pagefile:
             return pagefile.read()
-    except IOError:
+    except OSError:
         return ""

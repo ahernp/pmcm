@@ -1,6 +1,6 @@
-from datetime import datetime
-from html import escape
 import pathlib
+from datetime import datetime, timezone
+from html import escape
 
 from constants import PAGES_PATH
 from history import update_history
@@ -32,14 +32,16 @@ def read_page(name):
 
 def get_time_metadata(name):
     path = pathlib.Path(PAGES_PATH / name)
-    return datetime.fromtimestamp(path.stat().st_mtime).strftime("%a %Y-%m-%d %H:%M:%S")
+    return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).strftime(
+        "%a %Y-%m-%d %H:%M:%S"
+    )
 
 
 def edit_page(name):
     template = get_template()
     try:
         page_content = escape(read_page(name))
-    except IOError:
+    except OSError:
         page_content = ""
     context = populate_context(
         {
@@ -67,7 +69,7 @@ def view_page(name):
         html = template.format(**context)
         page_cache[name] = page_content
         return html
-    except IOError:
+    except OSError:
         return edit_page(name)
 
 

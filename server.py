@@ -52,7 +52,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.return_html_content(view_uploads())
         else:
             self.redirect(HOME_PAGE_URL)
-        return
 
     def do_POST(self):
         form = cgi.FieldStorage(
@@ -79,8 +78,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             elif self.path.startswith(SEARCH_URL_ROOT):
                 search_term = form["search"].value
                 self.return_html_content(search(search_term))
-        except IOError:
-            self.send_error(404, "Not Found: %s" % self.path)
+        except OSError:
+            self.send_error(404, f"Not Found: {self.path}")
 
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):

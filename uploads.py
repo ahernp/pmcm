@@ -1,7 +1,7 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
-from template import get_template, populate_context
 from constants import MEDIA_ROOT_PATH
+from template import get_template, populate_context
 
 UPLOADS_TEMPLATE = """<form action="/uploads/" method="post" enctype="multipart/form-data">
     <label for="content">Upload file:</label>
@@ -37,7 +37,7 @@ def view_uploads():
         directory_path = MEDIA_ROOT_PATH / directory
         for file_path in directory_path.iterdir():
             modified_time = datetime.fromtimestamp(
-                file_path.stat().st_mtime
+                file_path.stat().st_mtime, tz=timezone.utc
             ).isoformat()
             upload_rows += UPLOAD_ROW.format(
                 dir=directory, name=file_path.name, modified_time=modified_time
